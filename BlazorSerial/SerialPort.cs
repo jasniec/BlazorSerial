@@ -54,6 +54,6 @@ namespace BlazorSerial
             return connectionResult;
         }
 
-        public async Task Write(string text) => Enum.Parse<ConnectResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialWriteText", text));
+        public async Task Write(string text) => await _jsRuntime.InvokeAsync<string>("blazorSerialWriteText", text);
     }
 }
