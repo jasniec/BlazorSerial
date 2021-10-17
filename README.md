@@ -21,7 +21,7 @@ Then, in your index file (wwwroot/index.html) add a line at the bottom of the bo
 And register dependency in Program.cs file
 
 ```csharp
-builder.Services.AddTransient<BlazorSerial.BlazorSerial>();
+builder.Services.AddBlazorSerial();
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ builder.Services.AddTransient<BlazorSerial.BlazorSerial>();
 To write text to the serial port, you have to ask user to choose a port, if successfully chosen, you have to connect and then send some text.
 
 ```csharp
-@inject BlazorSerial Serial
+@inject ISerialPort Serial
 
 // ...
 

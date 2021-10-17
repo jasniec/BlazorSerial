@@ -1,18 +1,19 @@
 using BlazorSerial.Enums;
 using BlazorSerial.Exceptions;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BlazorSerial
 {
-    public class BlazorSerial
+    public class SerialPort : ISerialPort
     {
         public bool IsConnected { get; private set; }
         public bool IsPortChoosen { get; private set; }
 
         private readonly IJSRuntime _jsRuntime;
 
-        public BlazorSerial(IJSRuntime jsRuntime)
+        public SerialPort(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
         }
@@ -21,7 +22,7 @@ namespace BlazorSerial
 
         public async Task<RequestPortResponseEnum> RequestPort()
         {
-            var result = await _jsRuntime.InvokeAsync<RequestPortResponseEnum>("blazorSerialGetPort");
+            var result = Enum.Parse<RequestPortResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialGetPort"));
 
             if (result == RequestPortResponseEnum.Ok)
             {
@@ -43,7 +44,7 @@ namespace BlazorSerial
                 throw new AlreadyConnectedException();
             }
 
-            var connectionResult = await _jsRuntime.InvokeAsync<ConnectResponseEnum>("blazorSerialConnect", baudRate);
+            var connectionResult = Enum.Parse<ConnectResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialConnect", baudRate));
 
             if (connectionResult == ConnectResponseEnum.Ok)
             {
@@ -53,6 +54,6 @@ namespace BlazorSerial
             return connectionResult;
         }
 
-        public async Task Write(string text) => await _jsRuntime.InvokeAsync<ConnectResponseEnum>("blazorSerialWriteText", text);
+        public async Task Write(string text) => Enum.Parse<ConnectResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialWriteText", text));
     }
 }

@@ -1,10 +1,11 @@
 var blazorSerialPort;
+var blazorSerialTextEncoder = new TextEncoder();
 
-export function blazorSerialIsSupported() {
+function blazorSerialIsSupported() {
     return navigator.serial ? true : false;
 }
 
-export async function blazorSerialGetPort() {
+async function blazorSerialGetPort() {
     try {
         blazorSerialPort = await navigator.serial.requestPort();
         return "Ok";
@@ -22,7 +23,7 @@ export async function blazorSerialGetPort() {
     }
 }
 
-export async function blazorSerialConnect(baudRate) {
+async function blazorSerialConnect(baudRate) {
     try {
         await blazorSerialPort.open({ baudRate: baudRate });
         return "Ok";
@@ -40,8 +41,8 @@ export async function blazorSerialConnect(baudRate) {
     }
 }
 
-export function blazorSerialWriteText(text) {
-    let writer = port.writable.getWriter();
-    writer.write(textEncoder.encode(text));
+function blazorSerialWriteText(text) {
+    let writer = blazorSerialPort.writable.getWriter();
+    writer.write(blazorSerialTextEncoder.encode(text));
     writer.releaseLock();
 }
