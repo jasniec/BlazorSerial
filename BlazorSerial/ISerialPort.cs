@@ -6,9 +6,9 @@ namespace BlazorSerial
     public interface ISerialPort
     {
         bool IsConnected { get; }
-        bool IsPortChoosen { get; }
+        bool IsPortChosen { get; }
 
-        Task<ConnectResponseEnum> Connect(int baudRate);
+        Task<ConnectResponseEnum> Open(int baudRate);
         Task<bool> IsSupported();
         Task<RequestPortResponseEnum> RequestPort();
         Task Write(string text);

@@ -23,7 +23,7 @@ async function blazorSerialGetPort() {
     }
 }
 
-async function blazorSerialConnect(baudRate) {
+async function blazorSerialOpen(baudRate) {
     try {
         await blazorSerialPort.open({ baudRate: baudRate });
         return "Ok";
@@ -45,4 +45,9 @@ function blazorSerialWriteText(text) {
     let writer = blazorSerialPort.writable.getWriter();
     writer.write(blazorSerialTextEncoder.encode(text));
     writer.releaseLock();
+}
+
+function blazorSerialClose() {
+    blazorSerialPort.close();
+    blazorSerialPort = undefined;
 }

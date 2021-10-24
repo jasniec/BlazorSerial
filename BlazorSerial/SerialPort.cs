@@ -9,7 +9,7 @@ namespace BlazorSerial
     public class SerialPort : ISerialPort
     {
         public bool IsConnected { get; private set; }
-        public bool IsPortChoosen { get; private set; }
+        public bool IsPortChosen { get; private set; }
 
         private readonly IJSRuntime _jsRuntime;
 
@@ -26,15 +26,15 @@ namespace BlazorSerial
 
             if (result == RequestPortResponseEnum.Ok)
             {
-                IsPortChoosen = true;
+                IsPortChosen = true;
             }
 
             return result;
         }
 
-        public async Task<ConnectResponseEnum> Connect(int baudRate)
+        public async Task<ConnectResponseEnum> Open(int baudRate)
         {
-            if (!IsPortChoosen)
+            if (!IsPortChosen)
             {
                 throw new PortNotChoosenException();
             }
@@ -44,7 +44,7 @@ namespace BlazorSerial
                 throw new AlreadyConnectedException();
             }
 
-            var connectionResult = Enum.Parse<ConnectResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialConnect", baudRate));
+            var connectionResult = Enum.Parse<ConnectResponseEnum>(await _jsRuntime.InvokeAsync<string>("blazorSerialOpen", baudRate));
 
             if (connectionResult == ConnectResponseEnum.Ok)
             {
@@ -53,6 +53,8 @@ namespace BlazorSerial
 
             return connectionResult;
         }
+
+        public async Task Close() => await _jsRuntime.InvokeVoidAsync("blazorSerialClose");
 
         public async Task Write(string text) => await _jsRuntime.InvokeAsync<string>("blazorSerialWriteText", text);
     }
