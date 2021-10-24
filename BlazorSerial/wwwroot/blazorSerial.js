@@ -49,5 +49,4 @@ function blazorSerialWriteText(text) {
 
 function blazorSerialClose() {
     blazorSerialPort.close();
-    blazorSerialPort = undefined;
 }

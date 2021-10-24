@@ -54,7 +54,14 @@ namespace BlazorSerial
             return connectionResult;
         }
 
-        public async Task Close() => await _jsRuntime.InvokeVoidAsync("blazorSerialClose");
+        public async Task Close()
+        {
+            if (IsConnected)
+            {
+                await _jsRuntime.InvokeVoidAsync("blazorSerialClose");
+                IsConnected = false;
+            }
+        }
 
         public async Task Write(string text) => await _jsRuntime.InvokeAsync<string>("blazorSerialWriteText", text);
     }
