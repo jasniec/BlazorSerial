@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>jasniec</Authors>
     <Description>A blazor WASM library to wrap Serial API (for chrome based browsers).</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -9,9 +9,9 @@
     <RepositoryUrl>https://github.com/jasniec/BlazorSerial</RepositoryUrl>
     <PackageTags>Blazor,WASM,Serial,SerialPort</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1.1</Version>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
+    <Version>1.0.3.0</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
 
   
