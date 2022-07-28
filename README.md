@@ -37,7 +37,7 @@ To write text to the serial port, you have to ask user to choose a port, if succ
 private async Task WriteHelloWorld()
 {
     if (await Serial.RequestPort() == BlazorSerial.Enums.RequestPortResponseEnum.Ok
-     && await Serial.Connect(115200) == BlazorSerial.Enums.ConnectResponseEnum.Ok)
+     && await Serial.Open(115200) == BlazorSerial.Enums.ConnectResponseEnum.Ok)
     {
         await Serial.Write("Hello World!");
     }
